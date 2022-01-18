@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+if ! type -p fzf >/dev/null; then
+  echo "fzf not found. See https://github.com/junegunn/fzf" >&2
+  exit 1
+fi
+
+gh pr list \
+    | column -t -s $'\t' \
+    | tac \
+    | fzf \
+    | awk "{print \$1}" \
+    | xargs -I @ gh pr checkout @
