@@ -8,7 +8,6 @@ fi
 
 gh pr list \
     | column -t -s $'\t' \
-    | tac \
     | fzf \
     | awk "{print \$1}" \
     | xargs -I @ gh pr checkout @
